@@ -1,0 +1,102 @@
+index.html
+/pdfs/
+  /en/
+    brochure.pdf
+  /es/
+    brochure.pdf<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Multilanguage Viewer</title>
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <style>
+    body { font-family: Arial; text-align: center; }
+    canvas { margin-top: 20px; }
+    select { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>View Brochure</h1>
+  <select id="languageSelector">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+  </select>
+  <canvas id="pdfCanvas"></canvas>
+
+  <script>
+    const pdfCanvas = document.getElementById('pdfCanvas');
+    const languageSelector = document.getElementById('languageSelector');
+
+    const renderPDF = (lang) => {
+      const url = `pdfs/${lang}/brochure.pdf`;
+      const loadingTask = pdfjsLib.getDocument(url);
+      loadingTask.promise.then(function(pdf) {
+        pdf.getPage(1).then(function(page) {
+          const viewport = page.getViewport({scale: 1.5});
+          const context = pdfCanvas.getContext('2d');
+          pdfCanvas.height = viewport.height;
+          pdfCanvas.width = viewport.width;
+          const renderContext = {canvasContext: context, viewport: viewport};
+          page.render(renderContext);
+        });
+      });
+    };
+
+    // Initial load
+    renderPDF('en');
+
+    languageSelector.addEventListener('change', (e) => {
+      renderPDF(e.target.value);
+    });
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Multilanguage Viewer</title>
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <style>
+    body { font-family: Arial; text-align: center; }
+    canvas { margin-top: 20px; }
+    select { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>View Brochure</h1>
+  <select id="languageSelector">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+  </select>
+  <canvas id="pdfCanvas"></canvas>
+
+  <script>
+    const pdfCanvas = document.getElementById('pdfCanvas');
+    const languageSelector = document.getElementById('languageSelector');
+
+    const renderPDF = (lang) => {
+      const url = `pdfs/${lang}/brochure.pdf`;
+      const loadingTask = pdfjsLib.getDocument(url);
+      loadingTask.promise.then(function(pdf) {
+        pdf.getPage(1).then(function(page) {
+          const viewport = page.getViewport({scale: 1.5});
+          const context = pdfCanvas.getContext('2d');
+          pdfCanvas.height = viewport.height;
+          pdfCanvas.width = viewport.width;
+          const renderContext = {canvasContext: context, viewport: viewport};
+          page.render(renderContext);
+        });
+      });
+    };
+
+    // Initial load
+    renderPDF('en');
+
+    languageSelector.addEventListener('change', (e) => {
+      renderPDF(e.target.value);
+    });
+  </script>
+</body>
+</html>
